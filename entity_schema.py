@@ -149,6 +149,7 @@ class DL(Base):
 
     id = Column(Integer, primary_key=True)
     dln = Column(Text)								# DL number
+    ssn = Column(Text)  # Points at the SSN Table. Create a new one if not there
     state = helpers.State
     dl_class = Column(Text)							# DL class
     name = Column(Text)  # Points at the Name Table. Create a new one if not there
@@ -156,13 +157,19 @@ class DL(Base):
     dob = Column(Text)  # Points at the DOB Table. Create a new one if not there
     hair = Column(Text)  # Points at the hair Table. Create a new one if not there
     eyes = Column(Text)  # Points at the eyes Table. Create a new one if not there
+    height = Column(Text)  # Points at the height Table. Create a new one if not there
     weight = Column(Text)  # Points at the weight Table. Create a new one if not there
     sex = Column(Text)  # Points at the gender Table. Create a new one if not there
+    duplicates = Column(Integer)
+    medical = Column(Text)
+    organ_donor = Column(Text)
+    non_resident = Column(Text)
     issued = Column(Date)
     expires = Column(Date)
-    rest = Column(Text)
+    restriction = Column(Text)
     endorse = Column(Text)
     replaced = Column(Date)
+    document_discriminator = Column(Text)
     image = Column(Text)
     converted = Column(Boolean)						# Checked if ID has been converted from image to Parse mode
     priority = Column(Integer)
@@ -177,7 +184,64 @@ class Vehicle(Base):
     registration = Column(Text)  # Points at the registration Table. Create a new one if not there
     title = Column(Text)  # Points at the title Table. Create a new one if not there
     plate = Column(Text)  # Points at the plate Table. Create a new one if not there
+    ownership_type = Column(helpers.VehicleOwnership)  # Lease, Own, Rent
     priority = Column(Integer)
     protection = Column(Boolean)
     tags = Column(Text)
 
+
+class VehicleTitle(Base):
+    __tablename__ = user_uuid + 'vehicle_title'
+
+    id = Column(Integer, primary_key=True)
+    title_number = Column(Text)  # Points at the registration Table. Create a new one if not there
+    vin_number = Column(Text)
+    year = Column(Text)  # Points at the title Table. Create a new one if not there
+    make = Column(Text)  # Points at the plate Table. Create a new one if not there
+    model = Column(Text)
+    body = Column(Text)
+    document_number = Column(Text)
+    color = Column(Text)
+    weight = Column(Text)
+    fuel = Column(Text)
+    cylinders = Column(Text)
+    new = Column(Boolean)
+    used = Column(Boolean)
+    demo = Column(Boolean)
+    title_type = Column(Text)
+    issued_date = Column(Date)
+    purchase_date = Column(Date)
+    liens = Column(Text)
+    odometer = Column(Text)
+    list_price = Column(Text)
+    owner_name = Column(Text)  # Points at the Name Table and the OtherNames Table, stores them in a List
+    owner_address = Column(Text)  # Points at the Address Table and the OtherAddress Table, stores them in a List
+    image = Column(Text)
+    priority = Column(Integer)
+    protection = Column(Boolean)
+    tags = Column(Text)
+
+
+class VehicleRegistration(Base):
+    __tablename__ = user_uuid + 'vehicle_registration'
+
+    id = Column(Integer, primary_key=True)
+    mailing_address = Column(Text)
+    plate = Column(Text)
+    decal = Column(Text)
+    expires = Column(Text)
+    year = Column(Text)
+    make = Column(Text)
+    body = Column(Text)
+    color = Column(Text)
+    tax_month = Column(Text)
+    vin = Column(Text)
+    plate_type = Column(Text)
+    net_weight = Column(Text)
+    dln = Column(Text)
+    issued_date = Column(Text)
+    issued_plate = Column(Text)
+    image = Column(Text)
+    priority = Column(Integer)
+    protection = Column(Boolean)
+    tags = Column(Text)
