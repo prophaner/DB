@@ -60,7 +60,7 @@ class Registration(object):
     def test_phone(self, commit=True, **kwargs):
         if not kwargs:
             kwargs = {'uuid': self.uuid,
-                      'phone': int(random.random() * 10**9)}
+                      'phone': (1 + int(random.random()) * 10**9)}
 
         if commit:
             session.add(Phone(**kwargs))
