@@ -1,6 +1,6 @@
 from sqlalchemy.orm import sessionmaker
-from DB.schema import *
-from DB.helpers import *
+from schema import *
+from helpers import *
 import random, string, datetime
 import uuid
 
@@ -9,7 +9,7 @@ Session = sessionmaker(bind=engine)
 session = Session()
 
 
-class Registration(object):
+class Full(object):
     def __init__(self, email=None):
         self.email = email or self.get_random_email()
         self.uuid = str(uuid.uuid4())
@@ -60,7 +60,7 @@ class Registration(object):
     def test_phone(self, commit=True, **kwargs):
         if not kwargs:
             kwargs = {'uuid': self.uuid,
-                      'phone': (1 + int(random.random()) * 10**9)}
+                      'phone': int((1+random.random()) * 10**9)}
 
         if commit:
             session.add(Phone(**kwargs))
@@ -127,5 +127,4 @@ class Registration(object):
         self.query_uuid()
 
 
-a = Registration()
-a.test1()
+
