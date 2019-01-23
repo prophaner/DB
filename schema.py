@@ -1,12 +1,12 @@
 from sqlalchemy import MetaData
 from sqlalchemy import Column
-from sqlalchemy import Integer, String, Text, Boolean, Date, Sequence
-from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy import Integer, Text, Boolean, Date, Sequence
 from sqlalchemy.ext.declarative import declarative_base
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy import create_engine
 
-engine = create_engine("sqlite:///DB\\id.sqlite")
+engine = create_engine("sqlite:///id.sqlite")
+
 metadata = MetaData(engine)
 Base = declarative_base()
 
@@ -18,6 +18,10 @@ class User(Base):
     uuid = Column(Text, unique=True, nullable=False)
     email = Column(Text, unique=True, nullable=False)
     _password = Column(Text, nullable=False)
+
+    registered = Column(Boolean, nullable=False)
+    expiration = Column(Date, nullable=False)
+    token = Column(Text)
 
     def __init__(self, password=None, *args, **kwargs):
         super(User, self).__init__(*args, **kwargs)
